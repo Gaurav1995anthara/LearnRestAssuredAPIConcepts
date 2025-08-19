@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.restassured.RestAssured;
@@ -48,6 +50,7 @@ public class PetFullClass {
 		ObjectMapper obj = new ObjectMapper();
 		PetRespo ptRep = obj.readValue(response.getBody().asString(), PetRespo.class);
 		
+		/*
 		System.out.println(ptRep.getId());
 		System.out.println(ptRep.getName());
 		System.out.println(ptRep.getStatus());
@@ -67,8 +70,53 @@ public class PetFullClass {
 			System.out.println(j.getId());
 			System.out.println(j.getName());
 		}
+		*/
+		
+		Assert.assertEquals(petrepo.getId(), ptRep.getId());
+		Assert.assertEquals(petrepo.getTags(), ptRep.getTags());
 		
 		
+		JsonNode js = obj.readTree(response.asString());
 	}
 
 }
+
+/*
+ * {
+  "status": "success",
+  "timestamp": "2025-07-07T10:00:00Z",
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice",
+      "roles": ["admin", "editor"],
+      "profile": {
+        "email": "alice@example.com",
+        "location": {
+          "city": "Mumbai",
+          "zipcode": "400001"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Bob",
+      "roles": ["viewer"],
+      "profile": {
+        "email": "bob@example.com",
+        "location": {
+          "city": "Delhi",
+          "zipcode": "110001"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "totalUsers": 2,
+    "page": 1,
+    "dynamicField_ABC123": {
+      "value": "something"
+    }
+  }
+}
+*/

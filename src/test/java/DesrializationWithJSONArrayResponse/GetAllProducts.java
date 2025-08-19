@@ -29,6 +29,13 @@ public class GetAllProducts {
 		try {
 			Products[] product = mapper.readValue(response.getBody().asString(), Products[].class);
 			
+			//using for loop
+			for(int i=0; i<product.length; i++) {
+				
+				product[i].getId();
+			}
+			
+			
 			for (Products p : product) {
 				System.out.println("id: " + p.getId());
 				System.out.println("title: " + p.getTitle());

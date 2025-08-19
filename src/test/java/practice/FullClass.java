@@ -7,6 +7,10 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -19,7 +23,7 @@ import practice.Info.Tags;
 public class FullClass {
 
 	@Test
-	public static void readAll() {
+	public static void readAll() throws JsonMappingException, JsonProcessingException {
 		
 		RestAssured.baseURI = "https://fakestoreapi.com";
 		
@@ -58,7 +62,17 @@ public class FullClass {
 		.extract()
 		.response();
 		
+		ObjectMapper mapper = new ObjectMapper();
+		Info info = mapper.readValue(response.getBody().asString(), Info.class);
 		
+		Category cat = info.getCategory();
+		cat.getId();
+		cat.getName();
+		List<Kingg> king = cat.getKing();
+		for(Kingg k : king) {
+			System.out.println(k.getId());
+			System.out.println(k.getName());
+		}
 		
 	}
 }

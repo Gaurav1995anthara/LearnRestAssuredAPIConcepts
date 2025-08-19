@@ -59,6 +59,14 @@
     <version>1.18.38</version>
     <scope>provided</scope>
 </dependency>
+
+<!-- https://mvnrepository.com/artifact/org.skyscreamer/jsonassert -->
+<dependency>
+    <groupId>org.skyscreamer</groupId>
+    <artifactId>jsonassert</artifactId>
+    <version>1.5.3</version>
+    <scope>test</scope>
+</dependency>
   </dependencies>
 
   <build>
